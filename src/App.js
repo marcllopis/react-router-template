@@ -1,26 +1,52 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
+import {Switch, Route} from 'react-router-dom';
+
+
+import Home from './components/Home'
+import About from './components/About'
+import Contact from './components/Contact'
+
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+class App extends Component {
+
+  state = {
+    home: {
+      title: 'Home component',
+      text: 'something extra about this component'
+    },
+    about: {
+      title: 'about component',
+      text: 'something extra about this component'
+    },
+    contact: {
+      title: 'contact component',
+      text: 'something extra about this component'
+    },
+  }
+
+  render() {
+      return (
+        <div className="App">
+          <Switch>
+            {/* Good way to pass props to child components */}
+            <Route
+              exact path='/'
+              render={props =>
+                <Home
+                  {...props}
+                  title={this.state.home.title}
+                  text={this.state.home.text}
+                />}
+            />
+            <Route path='/about' component={About} />
+            <Route path='/contact' component={Contact} />
+          </Switch>
+        </div>
+      );
+  }
 }
+
 
 export default App;
